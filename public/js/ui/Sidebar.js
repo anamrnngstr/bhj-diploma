@@ -10,7 +10,6 @@ class Sidebar {
   static init() {
     this.initAuthLinks();
     this.initToggleButton();
-    
   }
 
   /**
@@ -21,11 +20,11 @@ class Sidebar {
   static initToggleButton() {
     const sidebarMini = document.querySelector('.sidebar-mini');
     const sidebarToggle = document.querySelector('.sidebar-toggle');
-
-    sidebarToggle.addEventListener("click", () => {
+    sidebarToggle.addEventListener('click', (event) => {
+      event.preventDefault();
       sidebarMini.classList.toggle('sidebar-open');
       sidebarMini.classList.toggle('sidebar-collapse');
-    });
+    })
   }
 
   /**
@@ -36,26 +35,29 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-    const modalRegister = App.getModal('register');
-    const modalLogin = App.getModal('login');
+    const registerBtn = document.querySelector('.menu-item_register a'),
+    loginBtn = document.querySelector('.menu-item_login a'),
+    logoutBtn = document.querySelector('.menu-item_logout a'),
+    registerModal = App.getModal('register'),
+    loginModal = App.getModal('login');
 
-    const menuItemRegister = document.querySelector('.menu-item_register');
-    menuItemRegister.addEventListener('click', () => {
-      modalRegister.open();
+    registerBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      registerModal.open();
     });
 
-    const menuItemLogin = document.querySelector('.menu-item_login');
-    menuItemLogin.addEventListener('click', () => {
-      modalLogin.open();
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginModal.open();
     });
 
-    const menuItemLogout = document.querySelector('.menu-item_logout');
-    menuItemLogout.addEventListener('click', () => {
-      User.logout({}, (err, response) => {
-        if (response.success) {
-          App.setState('init');
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      User.logout((err, response) => {
+        if (response && response.success) {
+          App.setState( 'init' );
         }
       });
     });
   }
-}
+  }

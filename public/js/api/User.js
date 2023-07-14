@@ -4,13 +4,13 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+  static URL = '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
   static setCurrent(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-
+    localStorage.user = JSON.stringify(user);
   }
 
   /**
@@ -34,17 +34,14 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-    createRequest({
-      url: this.URL + '/current',
-      method: 'GET',
-      data: null,
+    return createRequest({data: null, method: 'GET', url: this.URL + '/current', responseType: 'json',
       callback: (err, response) => {
-        if (response && response.user) {
+        if(response && response.user) {
           this.setCurrent(response.user);
         } else {
           this.unsetCurrent();
         }
-        callback(err, response);
+        callback( err, response );
       }
     });
   }
@@ -77,19 +74,14 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-
-    createRequest({
-      url: this.URL + '/register',
-      method: 'POST',
-      data,
+    return createRequest({data, method: 'POST', url: this.URL + '/register', responseType: 'json',
       callback: (err, response) => {
-        if (response && response.user) {
+        if(response && response.user) {
           this.setCurrent(response.user);
         }
-        callback(err, response);
+        callback( err, response );
       }
     });
-
   }
 
   /**
@@ -97,15 +89,12 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout(callback) {
-    createRequest({
-      url: this.URL + '/logout',
-      method: 'POST',
-      data,
+    return createRequest({data: null, method: 'POST', url: this.URL + '/logout', responseType: 'json',
       callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
+        if(response && response.user) {
+          this.unsetCurrent();
         }
-        callback(err, response);
+        callback( err, response );
       }
     });
   }

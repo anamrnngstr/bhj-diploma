@@ -8,7 +8,7 @@ class CreateTransactionForm extends AsyncForm {
    * метод renderAccountsList
    * */
   constructor(element) {
-    super(element)
+    super(element);
     this.renderAccountsList();
   }
 
@@ -17,12 +17,12 @@ class CreateTransactionForm extends AsyncForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
-    Account.list(User.current(), (err, response) => {
-      if(response.success) {
-        this.element.querySelector('.accounts-select').innerHTML = '';
-        response.data.forEach(item => {
-          this.element.querySelector('.accounts-select').innerHTML += `<option value="${item.id}">${item.name}</option>`;
-        });
+    let select = this.element.querySelector('.accounts-select'),
+    user = User.current();
+    Account.list(user, (err, response) => {
+      if (response.data)  {
+        select.innerHTML = '';
+        response.data.forEach((item) => select.innerHTML += `<option value="${item.id}">${item.name}</option>`);
       }
     });
   }
@@ -34,16 +34,19 @@ class CreateTransactionForm extends AsyncForm {
    * в котором находится форма
    * */
   onSubmit(data) {
-    const modal = this.element.closest('.modal').dataset.modalId;
     Transaction.create(data, (err, response) => {
-      if(response) {
-        if(modal === 'newIncome'){
-          App.getModal('newIncome').close();
+      if (response && response.success) {
+        const modalWindow = this.element.closest('.modal');
+        let modal;
+        if (modalWindow.getAttribute('id') === 'modal-new-income') {
+          modal = 'newIncome';
         } else {
-          App.getModal('newExpense').close();
+          modal = 'newExpense';
         }
-        this.element.reset();
+        const getModal = App.getModal(modal);
+        getModal.close();
         App.update();
+        this.element.reset();
       }
     });
   }

@@ -10,12 +10,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list(data, callback){
-    createRequest({
-      url: this.URL,
-      method: 'GET',
-      data,
-      callback
-    });
+    return createRequest({data, method: 'GET', url: this.URL, responseType: 'json', callback});
   }
 
   /**
@@ -24,12 +19,8 @@ class Entity {
    * что наследуется от Entity)
    * */
   static create(data, callback) {
-    createRequest({
-      url: this.URL,
-      method: 'PUT',
-      data,
-      callback
-    });
+    // let modifiedData = Object.assign({ _method: 'PUT' }, data );
+    return createRequest({data: data, method: 'PUT', url: this.URL, responseType: 'json', callback});
   }
 
   /**
@@ -37,12 +28,6 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static remove(data, callback ) {
-    createRequest({
-      url: this.URL,
-      method: 'DELETE',
-      data,
-      callback
-    });
-
+    return createRequest({data: data, method: 'DELETE', url: this.URL + '/', responseType: 'json', callback});
   }
 }

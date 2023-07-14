@@ -13,9 +13,8 @@ class Modal {
    * */
   constructor(element){
     if (!element) {
-      throw new Error('Ошибка! Элемент не найден');
+      throw new Error('Ошибка, элемент не существует!');
     }
-
     this.element = element;
     this.registerEvents();
   }
@@ -26,12 +25,10 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    const dataDismiss = this.element.querySelectorAll('[data-dismiss="modal"]');
-    dataDismiss.forEach(element => {
-      element.addEventListener('click', (event) => {
-        this.onClose(event);
-      });
-    });
+    this.closeBtnArr = this.element.querySelectorAll('button[data-dismiss="modal"]');
+    for (let closeBtn of this.closeBtnArr) {
+      closeBtn.addEventListener('click', (e) => this.onClose(e));
+    }
   }
 
   /**
@@ -53,6 +50,6 @@ class Modal {
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-    this.element.style.display = 'none';
+    this.element.style.display = '';
   }
 }

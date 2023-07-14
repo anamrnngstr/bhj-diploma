@@ -5,6 +5,24 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1"
+    },
+    {
+      "name": "an",
+      "email": "ljessmorganl@gmail.com",
+      "password": "111",
+      "id": "3kv18j50lk30xamp"
+    },
+    {
+      "name": "ana",
+      "email": "ljessmorgnl@gmail.com",
+      "password": "1111",
+      "id": "3kv18jiplk3130yb"
+    },
+    {
+      "name": "anna",
+      "email": "anna@yandex.ru",
+      "password": "demo",
+      "id": "3kv18jl0lk3141sw"
     }
   ],
   "accounts": [
@@ -22,6 +40,11 @@
       "name": "Бизнес",
       "user_id": "1",
       "id": "3"
+    },
+    {
+      "name": "hh",
+      "user_id": "3kv18jl0lk3141sw",
+      "id": "3kv18jnalk314rl0"
     }
   ],
   "transactions": [
@@ -159,6 +182,15 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "3kv18joylk314ygw",
+      "type": "income",
+      "name": "66",
+      "sum": 5,
+      "account_id": "3kv18jnalk314rl0",
+      "user_id": "3kv18jl0lk3141sw",
+      "created_at": "2023-07-14T20:26:42.175Z"
     }
   ]
 }

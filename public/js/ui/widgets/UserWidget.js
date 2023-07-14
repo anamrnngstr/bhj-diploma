@@ -13,9 +13,8 @@ class UserWidget {
    * */
   constructor(element){
     if (!element) {
-      throw new Error('Ошибка! Элемент не найден');
+      throw new Error('Ошибка, элемент не существует!');
     }
-
     this.element = element;
   }
 
@@ -27,9 +26,9 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update(){
-    const user = User.current();
+    let user = User.current();
     if (user) {
-      const userName = document.querySelector('.user-name');
+      let userName = this.element.querySelector('.user-name');
       userName.textContent = user.name;
     }
   }
